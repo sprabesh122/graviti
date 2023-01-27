@@ -32,7 +32,7 @@ const Main = () => {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
+  // const [duration, setDuration] = useState("");
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef();
@@ -57,16 +57,18 @@ const Main = () => {
     });
     setDirectionsResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
-    setDuration(results.routes[0].legs[0].duration.text);
+    // setDuration(results.routes[0].legs[0].duration.text);
   }
 
   function clearRoute() {
     setDirectionsResponse(null);
     setDistance("");
-    setDuration("");
+    // setDuration("");
     originRef.current.value = "";
     destiantionRef.current.value = "";
   }
+
+  const center = { lat: 48.8584, lng: 2.2945 };
 
   return (
     <Container>
@@ -85,7 +87,8 @@ const Main = () => {
             borderRadius="lg"
             m={6}
             zIndex="1"
-            minh="90vh"
+            h="90vh"
+            width={"50%"}
             fontWeight={"bold"}
           >
             <HStack spacing={2} justify={"space-between"}>
@@ -142,31 +145,22 @@ const Main = () => {
                   </p>
                 </Text>
               </Box>
-              {/* <IconButton
-                aria-label="center back"
-                icon={<FaLocationArrow />}
-                isRound
-                onClick={() => {
-                  map.panTo("center");
-                  map.setZoom(15);
-                }} */}
-              {/* /> */}
             </HStack>
           </Box>
 
-          <Box h="50%" w="50%">
+          <Box position={"relative"} height="50%" width={"50%"}>
             {/* Google Map Box */}
             <GoogleMap
-              center={"center"}
+              center={center}
               // zoom={15}
               mapContainerStyle={{
-                width: "40vw",
-                height: "70vh",
-                margin: "40px",
+                width: "80%",
+                height: "125%",
+                margin: "10%",
               }}
               onLoad={(map) => setMap(map)}
             >
-              <Marker position={"center"} />
+              <Marker position={center} />
               {directionsResponse && (
                 <DirectionsRenderer directions={directionsResponse} />
               )}
@@ -184,6 +178,7 @@ const Container = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
+  background-color: #f4f8fa; ;
 `;
 
 const Content = styled.div``;
@@ -195,8 +190,8 @@ const Opening = styled.p`
 
 const HeroSection = styled.div`
   display: flex;
-  height: 100vh;
-  background-color: #e5e5e5;
+  height: 90vh;
+  background-color: #f4f8fa;
   margin: 4px;
 `;
 
