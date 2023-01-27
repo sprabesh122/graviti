@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 import {
-  useJsApiLoader,
+  useLoadScript,
   GoogleMap,
   Marker,
   DirectionsRenderer,
@@ -24,7 +24,7 @@ import {
 import { useRef, useState } from "react";
 
 const Main = () => {
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
   });
@@ -40,7 +40,7 @@ const Main = () => {
   const destiantionRef = useRef();
 
   if (!isLoaded) {
-    return <SkeletonText />;
+    return <div>Loading....</div>;
   }
 
   async function calculateRoute() {
@@ -151,16 +151,17 @@ const Main = () => {
           <Box position={"relative"} height="50%" width={"50%"}>
             {/* Google Map Box */}
             <GoogleMap
-              center={center}
-              // zoom={15}
+              center={{ lat: 48.8584, lng: 2.2945 }}
+              zoom={15}
               mapContainerStyle={{
                 width: "80%",
                 height: "125%",
                 margin: "10%",
+                padding: "10%",
               }}
               onLoad={(map) => setMap(map)}
             >
-              <Marker position={center} />
+              <Marker position={{ center }} />
               {directionsResponse && (
                 <DirectionsRenderer directions={directionsResponse} />
               )}
