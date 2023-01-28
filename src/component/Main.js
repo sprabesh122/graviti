@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import { Autocomplete } from "@react-google-maps/api";
-import { FaTimes } from "react-icons/fa";
+import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import {
   Box,
   Button,
@@ -68,7 +68,7 @@ const Main = () => {
     destiantionRef.current.value = "";
   }
 
-  const center = { lat: 48.8584, lng: 2.2945 };
+  const center = { lat: 23.5, lng: 82.5 };
 
   return (
     <Container>
@@ -86,7 +86,7 @@ const Main = () => {
             p={10}
             borderRadius="lg"
             m={6}
-            zIndex="1"
+            zIndex="modal"
             h="90vh"
             width={"50%"}
             fontWeight={"bold"}
@@ -145,19 +145,34 @@ const Main = () => {
                   </p>
                 </Text>
               </Box>
+              <IconButton
+                aria-label="center back"
+                icon={<FaLocationArrow />}
+                isRound
+                onClick={() => {
+                  map.panTo(center);
+                  map.setZoom(15);
+                }}
+              />
             </HStack>
           </Box>
 
           <Box position={"relative"} height="50%" width={"50%"}>
             {/* Google Map Box */}
             <GoogleMap
-              center={{ lat: 48.8584, lng: 2.2945 }}
+              center={center}
               zoom={15}
               mapContainerStyle={{
                 width: "80%",
                 height: "125%",
                 margin: "10%",
                 padding: "10%",
+              }}
+              options={{
+                zoomControl: false,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
               }}
               onLoad={(map) => setMap(map)}
             >
