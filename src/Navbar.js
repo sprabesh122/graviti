@@ -4,9 +4,7 @@ import styled from "styled-components";
 function Navbar() {
   return (
     <Nav className="navbar">
-      <div>
-        <img src=".././images/logo.png" alt="logo" />
-      </div>
+      <img src="images/logo.jpg" alt="logo" />
     </Nav>
   );
 }
@@ -22,6 +20,14 @@ const Nav = styled.nav`
   position: sticky;
   top: 0;
   z-index: 999;
+
+  img {
+    position: absolute;
+    width: 160px;
+    height: 69px;
+    left: 67px;
+    top: 6px;
+  }
 `;
 
 export default Navbar;
